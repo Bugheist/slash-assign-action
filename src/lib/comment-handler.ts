@@ -5,7 +5,7 @@ import { Issue } from './issue-processor'
 import { getInputsFromTools } from './helpers'
 
 export default async function commentHandler(tools: SlashAssignToolkit) {
-  return tools.command('assign', async () => {
+  return async () => {
     const issue = tools.context.payload.issue as Issue
     const comment = tools.context.payload.comment
 
