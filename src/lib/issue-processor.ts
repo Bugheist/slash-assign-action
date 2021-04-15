@@ -10,7 +10,7 @@ export type Issue = SearchIssuesAndPullRequestsResponseData['items'][0] & {
 export default class StaleAssignments {
   private assignmentDuration: number
 
-  constructor (
+  constructor(
     private tools: SlashAssignToolkit
   ) {
     this.assignmentDuration = (
@@ -19,7 +19,7 @@ export default class StaleAssignments {
     )
   }
 
-  async getStaleAssignments (): Promise<Issue[]> {
+  async getStaleAssignments(): Promise<Issue[]> {
     const assignedLabel = this.tools.inputs.assigned_label
     const exemptLabel = this.tools.inputs.pin_label
     const { owner, repo } = this.tools.context.repo
@@ -44,6 +44,9 @@ export default class StaleAssignments {
       // Updated within the last X days
       `updated:<${timestamp}`
     ]
+    console.log('query is');
+    console.log(q);
+
 
     const issues = await this.tools.github.search.issuesAndPullRequests({
       q: q.join(' '),
@@ -55,13 +58,13 @@ export default class StaleAssignments {
     return issues.data.items as Issue[]
   }
 
-  hasWarningLabel (issue: Issue): boolean {
+  hasWarningLabel(issue: Issue): boolean {
     return issue
       .labels
       .some(label => label.name === this.tools.inputs.stale_assignment_label)
   }
 
-  async postWarningMessage (issue: Issue) {
+  async postWarningMessage(issue: Issue) {
     return Promise.all([
       this.tools.github.issues.createComment({
         ...this.tools.context.repo,
@@ -80,7 +83,7 @@ export default class StaleAssignments {
     ])
   }
 
-  async unassignIssue (issue: Issue) {
+  async unassignIssue(issue: Issue) {
     return Promise.all([
       this.tools.github.issues.removeAssignees({
         ...this.tools.context.repo,
@@ -95,7 +98,7 @@ export default class StaleAssignments {
     ])
   }
 
-  since (days: number) {
+  since(days: number) {
     const ttl = days * 24 * 60 * 60 * 1000
     let date = new Date(new Date() as any - ttl)
 
