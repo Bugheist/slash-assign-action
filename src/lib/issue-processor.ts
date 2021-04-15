@@ -44,8 +44,9 @@ export default class StaleAssignments {
       // Updated within the last X days
       `updated:<${timestamp}`
     ]
-    console.log('query is');
-    console.log(q);
+
+    this.tools.log.info('query is');
+    this.tools.log.info(q);
 
 
     const issues = await this.tools.github.search.issuesAndPullRequests({
