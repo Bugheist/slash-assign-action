@@ -5,7 +5,7 @@ import { Issue } from './issue-processor'
 import { getInputsFromTools } from './helpers'
 
 export default async function commentHandler(tools: SlashAssignToolkit) {
-  return async () => {
+  return tools.command('assign', async () => {
     const issue = tools.context.payload.issue as Issue
     const comment = tools.context.payload.comment
 
@@ -60,5 +60,5 @@ export default async function commentHandler(tools: SlashAssignToolkit) {
       ...tools.context.issue,
       body
     })
-  }
+  })
 }
