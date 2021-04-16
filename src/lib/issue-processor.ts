@@ -44,10 +44,6 @@ export default class StaleAssignments {
       // Updated within the last X days
       `updated:<${timestamp}`
     ]
-    this.tools.log.console.error('query is');
-    this.tools.log.console.error(q);
-    this.tools.log.error('query is');
-    this.tools.log.error(q);
 
     this.tools.log.info('query is');
     this.tools.log.info(q);
