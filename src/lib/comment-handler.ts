@@ -60,5 +60,5 @@ export default async function commentHandler(tools: SlashAssignToolkit) {
       ...tools.context.issue,
       body
     })
-  })
+  }
 }
